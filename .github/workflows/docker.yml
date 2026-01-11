@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: eu-north-1
-  ECR_REGISTRY: 388212729357.dkr.ecr.eu-north-1.amazonaws.com
+  AWS_REGION: us-east-2
+  ECR_REGISTRY: 388212729357.dkr.ecr.us-east-2.amazonaws.com
   ECR_REPOSITORY: threat-composer
   IMAGE_TAG: ${{ github.sha }}
 
@@ -55,3 +55,4 @@ jobs:
       #   with:
       #     directory: ./terraform
       #     framework: terraform
+
