@@ -9,7 +9,7 @@ on:
 env:
   AWS_REGION: us-east-2
   ECR_REGISTRY: 783764595229.dkr.ecr.us-east-2.amazonaws.com
-  ECR_REPOSITORY: threat-composer
+  ECR_REPOSITORY: threat-composer-app
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
@@ -55,5 +55,6 @@ jobs:
       #   with:
       #     directory: ./terraform
       #     framework: terraform
+
 
 
