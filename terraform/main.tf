@@ -23,28 +23,28 @@ module "vpc" {
   app_to_port                    = var.app_to_port
 
   private_subnet_1_cidr = "10.0.3.0/24"
-  private_subnet_1_az   = "us-east-1a"
+  private_subnet_1_az   = "us-east-2a"
   private_subnet_1_name = "private-1"
 
   private_subnet_2_cidr = "10.0.4.0/24"
-  private_subnet_2_az   = "us-east-1b"
+  private_subnet_2_az   = "us-east-2b"
   private_subnet_2_name = "private-2"
 }
 
 
 module "alb" {
-  source    = "./modules/alb"
-  vpc_id    = module.vpc.vpc_id
-  subnet_ids = module.vpc.subnet_ids
-  alb_sg_id = module.vpc.alb_sg_id
+  source            = "./modules/alb"
+  vpc_id            = module.vpc.vpc_id
+  subnet_ids        = module.vpc.subnet_ids
+  alb_sg_id         = module.vpc.alb_sg_id
   security_group_id = module.vpc.alb_sg_id
-  
+
 }
 
 module "acm" {
-  source       = "./modules/acm"
-  domain_name  = var.domain_name         
-  route53_zone_id = module.route53.zone_id  
+  source          = "./modules/acm"
+  domain_name     = var.domain_name
+  route53_zone_id = module.route53.zone_id
 }
 
 
@@ -70,13 +70,13 @@ module "ecs" {
   vpc_id                         = module.vpc.vpc_id
   app_from_port                  = var.app_from_port
   app_to_port                    = var.app_to_port
- 
+
   ecs_security_group_id = module.vpc.ecs_security_group_id
 }
 module "route53" {
   source           = "./modules/route53"
-  hosted_zone_name = var.hosted_zone_name    
-  subdomain        = var.subdomain           
+  hosted_zone_name = var.hosted_zone_name
+  subdomain        = var.subdomain
   alb_dns_name     = module.alb.alb_dns_name
   alb_zone_id      = module.alb.lb_zone_id
 }
